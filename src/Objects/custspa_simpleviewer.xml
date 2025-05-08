@@ -1,0 +1,13 @@
+<singlepageapp scriptid="custspa_simpleviewer">
+    <name>Simpleviewer</name>
+    <description>Simpleviewer</description>
+    <url>simpleviewer</url>
+    <folder>[/SuiteApps/com.netsuite.simpleviewer/simpleviewer/]</folder>
+    <clientscriptfile>[/SuiteApps/com.netsuite.simpleviewer/simpleviewer/SpaClient.js]</clientscriptfile>
+    <serverscriptfile>[/SuiteApps/com.netsuite.simpleviewer/simpleviewer/SpaServer.js]</serverscriptfile>
+    <assetsfolder>[/SuiteApps/com.netsuite.simpleviewer/simpleviewer/assets/]</assetsfolder>
+    <loglevel>ERROR</loglevel>
+    <audienceallroles>F</audienceallroles>
+    <audienceroles></audienceroles>
+    <executeas></executeas>
+</singlepageapp>

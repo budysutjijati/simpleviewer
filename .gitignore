@@ -1,0 +1,45 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+.cache/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# JetBrains IDEs (WebStorm, PhpStorm, etc)
+.idea/
+
+# Test coverage and snapshots
+coverage/
+__snapshots__/
+
+# Jest cache
+jest-cache/
+jest-output/
+
+# SuiteCloud / NetSuite specific (optional local folders)
+.sdf-backups/
+.nsdeploy/
+project.json
+src/FileCabinet/
+knowledgebase/
+
+# Temp files
+*.swp
+*.tmp
+*.bak
+
+# MacOS Trash folder (sometimes gets accidentally committed)
+.Trashes

@@ -1,0 +1,1 @@
+(Optional assets folder placeholder)
