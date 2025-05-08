@@ -29,16 +29,29 @@ simpleviewer/
 **Relevant Scripts:**
 - simpleviewer/SpaClient.js
 - simpleviewer/App.jsx
+- simpleviewer/config.js
 - simpleviewer/data/SavedSearch.js
 
 **Process:**
 
 1. `SpaClient.js` initializes the SPA and renders `App.jsx` using `context.setContent(<App />)`.
-2. `App.jsx` reads the configuration from `config.js` to determine which saved search to load and how the ApplicationHeader should appear (title, subtitle, icon).
-3. `App.jsx` triggers `SavedSearch.fetchSearchResults` with savedSearchId and optional additional criteria (`savedSearchCriteria`).
-4. Saved search results (columns + rows) are returned and stored in state.
-5. `SearchResult.jsx` renders the DataGrid with the returned data.
-6. The SPA is ready for user interaction.
+
+2. `App.jsx` loads the configuration from `config.js` which provides:
+   - `savedSearchId`: the ID of the saved search to load
+   - `applicationTitle`, `applicationSubtitle`, `applicationIcon`: values for the Application Header
+   - `savedSearchCriteria`: optional dynamic additional criteria (such as filtering by current user)
+
+3. Based on the configuration, `App.jsx` calls `SavedSearch.fetchSearchResults` passing:
+   - The `savedSearchId`
+   - Any `savedSearchCriteria` (if defined, or defaults to an empty array)
+
+4. `SavedSearch.js` combines the saved search's original filters with any additional criteria and executes the search using SuiteScript.
+
+5. The results (columns and rows) are returned to `App.jsx` and stored in state.
+
+6. `SearchResult.jsx` renders the DataGrid with the fetched data.
+
+7. The SPA is now ready for user interaction, including filtering rows using the TextBox, exporting to CSV, and refreshing the results.
 
 ## Filtering DataGrid (Textbox Filter)
 
@@ -55,18 +68,21 @@ simpleviewer/
 
 **Note:** This is a client-side filter and does not re-execute the Saved Search.
 
-## Refreshing Saved Search Results (Refresh Button)
+## Refreshing Saved Search Results
 
 **Relevant Scripts:**
 - simpleviewer/App.jsx
 - simpleviewer/data/SavedSearch.js
+- simpleviewer/config.js
 
 **Process:**
 
 1. User clicks the "Refresh Results" button.
-2. `App.jsx` re-invokes `SavedSearch.fetchSearchResults` using the savedSearchId and additional criteria.
-3. The latest saved search results are fetched and rendered.
-4. Client-side filter (if applied) remains active after refresh.
+2. `App.jsx` re-invokes `SavedSearch.fetchSearchResults` using the `savedSearchId` and `savedSearchCriteria` defined in `config.js`.
+3. `SavedSearch.js` fetches the latest saved search results using SuiteScript, applying any additional criteria from `config.js`.
+4. The latest search results (columns and rows) are returned and stored in `App.jsx` state.
+5. `SearchResult.jsx` renders the DataGrid with the refreshed data.
+6. Any active client-side filter (Textbox) remains applied after refresh.
 
 ## Dynamic User Context & Additional Criteria (savedSearchCriteria)
 
