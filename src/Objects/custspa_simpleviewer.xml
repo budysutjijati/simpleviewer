@@ -1,4 +1,4 @@
-<singlepageapp scriptid="custspa_simpleviewer">
+<singlepageap scriptid="custspa_simpleviewer">
     <name>Simpleviewer</name>
     <description>Simpleviewer</description>
     <url>simpleviewer</url>
@@ -10,4 +10,4 @@
     <audienceallroles>F</audienceallroles>
     <audienceroles></audienceroles>
     <executeas></executeas>
-</singlepageapp>
+</singlepageap>

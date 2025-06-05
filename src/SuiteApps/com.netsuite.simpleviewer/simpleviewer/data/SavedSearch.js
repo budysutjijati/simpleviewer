@@ -16,12 +16,16 @@ export async function fetchSearchResults(savedSearchId, additionalFilters = []) 
 				// Load the saved search
 				const loadedSearch = search.load({ id: savedSearchId });
 
-				// Extract filter expression and columns
+				// Extract core saved search metadata from the loaded search object.
+				// - filterExpression: the base filters defined in the saved search UI
+				// - columns: the fields/expressions to retrieve
+				// - searchType: the record type the search is built on
 				const loadedFilterExpression = loadedSearch.filterExpression;
 				const loadedColumns = loadedSearch.columns;
 				const loadedSearchType = loadedSearch.searchType;
 
-				// Start building new filter expression
+				// Start building a new filter expression to combine original and config-defined filters.
+				// This ensures we preserve the structure and control how filters are merged.
 				const updatedFilters = [];
 
 				// Add original filter expression if exists

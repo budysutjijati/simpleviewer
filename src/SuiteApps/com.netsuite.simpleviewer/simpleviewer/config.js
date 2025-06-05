@@ -22,10 +22,10 @@ export default {
 
 	// Optional: Additional criteria to append to saved search
 	savedSearchCriteria: [
-		{
-			name: 'salesrep',
-			operator: 'IS',
-			values: ['CURRENT_USER'] // dynamically replaced with runtime user ID from SpaServer
-		}
+		// {
+		// 	name: 'salesrep',
+		// 	operator: 'IS',
+		// 	values: ['CURRENT_USER'] // dynamically replaced with runtime user ID from SpaServer
+		// }
 	]
 };

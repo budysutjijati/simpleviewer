@@ -10,23 +10,42 @@ import * as SavedSearch from './data/SavedSearch';
 import config from './config';
 
 export default function App() {
+
+	// Is needed to trigger the refresh whenever the refresh rsults button is clicked
 	const [refreshCount, setRefreshCount] = useState(0);
+
 	const [loading, setLoading] = useState(false);
+
+	// Is needed for the DataGrid. Storing it in state ensures that UIF will re-render the DataGrid when
+	// new column definitions are loaded (e.g. after refresh or new saved search).
 	const [columns, setColumns] = useState([]);
 	const [rows, setRows] = useState([]);
+
+	// Is needed for the client-side filter, without re-fetching data from the saved search
 	const [filterText, setFilterText] = useState('');
+
+	// Holds the current error or notice message to display in the BannerMessage.
+	// When set, it triggers the UI to show a dismissible message to the user.
 	const [bannerMessage, setBannerMessage] = useState(null);
 
 	/**
 	 * Loads the saved search with config + criteria
 	 */
 	const loadSearch = async () => {
+		// Sets the loading state to true so the UI can show a loading indicator or skeleton.
 		setLoading(true);
+
+		// Clear it in order to 'reset' the DataGrid, both for setColumns and setRows
 		setColumns([]);
 		setRows([]);
+
+		// Clear any existing error/notice message
 		setBannerMessage(null);
 
 		try {
+			// Execute the saved search with optional additional filters from config.
+			// The result includes column metadata and row data, formatted for the DataGrid.
+			// Once fetched, we update the UI state to display the new search results.
 			const { columns, rows } = await SavedSearch.fetchSearchResults(config.savedSearchId, config.savedSearchCriteria);
 			setColumns(columns);
 			setRows(rows);
@@ -50,7 +69,9 @@ export default function App() {
 	};
 
 	/**
-	 * React to refresh
+	 * Re-run the saved search whenever the refreshCount changes.
+	 * This allows the "Refresh Results" button to re-trigger data loading without changing other state.
+	 * useLayoutEffect(() => {
 	 */
 	useLayoutEffect(() => {
 		loadSearch();
